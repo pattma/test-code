@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { ProSidebar, Menu, MenuItem } from "react-pro-sidebar";
+// Defining types for component props improves reusability of components by validating received data
+import PropTypes from 'prop-types';
 import "react-pro-sidebar/dist/css/styles.css";
 import { Box, IconButton, Typography, useTheme } from "@mui/material";
 import { Link } from "react-router-dom";
@@ -23,10 +25,10 @@ const Item = ({ title, to, icon, selected, setSelected }) => {
   
   return (
     <MenuItem
-      active={selected === title}
-      style={{ color: colors.gray[100] }}
-      onClick={() => setSelected(title)}
-      icon={icon}
+    active={selected === title}
+    style={{ color: colors.gray[100] }}
+    onClick={() => setSelected(title)}
+    icon={icon}
     >
       <Typography>{title}</Typography>
       <Link to={to} />
@@ -39,7 +41,7 @@ const Sidebar = () => {
   const colors = tokens(theme.palette.mode);
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [selected, setSelected] = useState("Dashboard");
-
+  
   return (
     <Box
       sx={{
@@ -59,7 +61,7 @@ const Sidebar = () => {
           color: "#6870fa !important",
         },
       }}
-    >
+      >
       <ProSidebar collapsed={isCollapsed}>
         <Menu iconShape="square">
           {/* Logo and Menu Icon */}
@@ -67,13 +69,13 @@ const Sidebar = () => {
             onClick={() => setIsCollapsed(!isCollapsed)}
             icon={isCollapsed ? <MenuOutlinedIcon /> : undefined}
             style={{ margin: "10px 0 20px 0", color: colors.gray[100] }}
-          >
+            >
             {!isCollapsed && (
               <Box
-                display="flex"
-                justifyContent="space-between"
-                alignItems="center"
-                ml="15px"
+              display="flex"
+              justifyContent="space-between"
+              alignItems="center"
+              ml="15px"
               >
                 <Typography variant="h3" color={colors.gray[100]}>
                   ADMINIS
@@ -95,7 +97,7 @@ const Sidebar = () => {
                   height="100px"
                   src={`../../assets/user.png`}
                   style={{ cursor: "pointer", borderRadius: "50%" }}
-                />
+                  />
               </Box>
 
               <Box textAlign="center">
@@ -128,7 +130,7 @@ const Sidebar = () => {
               variant="h6"
               color={colors.gray[300]}
               sx={{ m: "15px 0 5px 20px" }}
-            >
+              >
               Data
             </Typography>
             <Item
@@ -137,21 +139,21 @@ const Sidebar = () => {
               icon={<PeopleOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
-            />
+              />
             <Item
               title="Contacts Information"
               to="/contacts"
               icon={<ContactsOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
-            />
+              />
             <Item
               title="Invoices Balances"
               to="/invoices"
               icon={<ReceiptOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
-            />
+              />
 
             <Typography
               variant="h6"
@@ -166,27 +168,27 @@ const Sidebar = () => {
               icon={<PersonOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
-            />
+              />
             <Item
               title="Calendar"
               to="/calender"
               icon={<CalendarTodayOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
-            />
+              />
             <Item
               title="FAQ Page"
               to="/faq"
               icon={<HelpOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
-            />
+              />
 
             <Typography
               variant="h6"
               color={colors.gray[300]}
               sx={{ m: "15px 0 5px 20px" }}
-            >
+              >
               Charts
             </Typography>
             <Item
@@ -202,26 +204,35 @@ const Sidebar = () => {
               icon={<PieChartOutlineOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
-            />
+              />
             <Item
               title="Line Chart"
               to="/line"
               icon={<TimeLineOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
-            />
+              />
             <Item
               title="Geography Chart"
               to="/geography"
               icon={<MapOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
-            />
+              />
           </Box>
         </Menu>
       </ProSidebar>
     </Box>
   );
 };
+
+// To add PropTypes for Typechecking
+Item.propTypes = {
+  title: PropTypes.string,
+  to: PropTypes.string,
+  icon: PropTypes.element,
+  selected: PropTypes.string,
+  setSelected: PropTypes.func,
+}
 
 export default Sidebar;
