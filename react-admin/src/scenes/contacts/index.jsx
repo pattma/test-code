@@ -89,7 +89,11 @@ const Contacts = () => {
         <DataGrid
           rows={mockDataContacts}
           columns={columns}
-          components={{ Toolbar: GridToolbar }}
+          //   The declaration was marked as deprecated here. (Overridable components)
+          //   components={{ Toolbar: GridToolbar }}
+
+          //   @deprecated — Use slots instead.
+          slots={{ Toolbar: GridToolbar }}
         />
       </Box>
     </Box>
